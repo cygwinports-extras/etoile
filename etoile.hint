@@ -1,0 +1,8 @@
+category: GNUstep
+requires: AZBackground.app Camaelon.bundle DictionaryReader.app EtoileMenuServer.app EtoileMenus.bundle FontManager.app StepChat.app Typewriter.app Vindaloo.app
+sdesc: "GNUstep-based user environment (meta-package)"
+ldesc: "Étoilé intends to be an innovative GNUstep based user 
+environment built from the ground up on highly modular and light 
+components with project and document orientation in mind, in order to 
+allow users to create their own workflow by reshaping or recombining 
+provided Services (aka Applications), Components etc."

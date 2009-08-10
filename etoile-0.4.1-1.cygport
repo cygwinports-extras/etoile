@@ -1,0 +1,40 @@
+inherit gnustep
+
+DESCRIPTION="Collection of GNUstep frameworks and apps"
+HOMEPAGE="http://etoileos.com/"
+SRC_URI="http://download.gna.org/etoile/${P}.tar.gz"
+SRC_DIR="Etoile-${PV}"
+
+PATCH_URI="0.4.1-as-needed.patch
+           0.4.1-build.patch"
+
+PKG_NAMES="${PN}"
+etoile_CONTENTS="usr/share/doc/"
+gnustep_pkg_apps AZBackground DictionaryReader EtoileMenuServer FontManager \
+	StepChat Typewriter Vindaloo
+gnustep_pkg_frameworks AddressView:0 Addresses:0 CoreObject:0 EtoileFoundation:0 \
+	EtoileSerialize:0 EtoileThread:0 EtoileUI:0 EtoileXML:0 IconKit:0 \
+	MediaKit:0 OgreKit:1 PopplerKit:1 ScriptKit:0 SystemConfig:0 \
+	UnitKit:1 XMPPKit:0 XWindowServerKit:0
+
+libAddresses_devel_CONTENTS+=" usr/include/GNUstep/AddressBook"
+libUnitKit_devel_CONTENTS+=" usr/bin/ukrun.exe"
+
+PKG_NAMES+=" Camaelon.bundle EtoileMenus.bundle Idle.tool libLuceneKit0 libLuceneKit-devel"
+Camaelon_bundle_CONTENTS="usr/lib/GNUstep/Bundles/Camaelon.themeEngine/"
+EtoileMenus_bundle_CONTENTS="usr/lib/GNUstep/Bundles/EtoileMenus.bundle/"
+Idle_tool_CONTENTS="usr/bin/Idle.exe"
+libLuceneKit0_CONTENTS="usr/bin/cygLuceneKit-0.dll"
+libLuceneKit_devel_CONTENTS="usr/include/GNUstep/LuceneKit/ usr/lib/libLuceneKit.*"
+
+# LanguageKit requires LLVM
+MAKEOPTS+=" smalltalk=no corner=no scriptservices=no melodie=no developer-base=no"
+
+src_install() {
+	cd ${B}
+	gnustep_env
+	gnustep_install
+
+	# FIXME: doesn't install correctly
+	rm -fr ${D}/usr/share/GNUstep/Documentation
+}

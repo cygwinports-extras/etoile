@@ -1,0 +1,9 @@
+category: GNUstep
+requires: libgcc1 libgnustep-base1.18 libgnustep-gui0.16 libobjc2 libX11_6
+external-source: etoile
+sdesc: "GNUstep SystemConfig framework (runtime)"
+ldesc: "Étoilé intends to be an innovative GNUstep based user 
+environment built from the ground up on highly modular and light 
+components with project and document orientation in mind, in order to 
+allow users to create their own workflow by reshaping or recombining 
+provided Services (aka Applications), Components etc."

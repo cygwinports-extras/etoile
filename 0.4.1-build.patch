@@ -1,0 +1,51 @@
+--- origsrc/Etoile-0.4.1/Frameworks/AddressesKit/Frameworks/Addresses/GNUmakefile	2009-03-17 08:18:01.000000000 -0500
++++ src/Etoile-0.4.1/Frameworks/AddressesKit/Frameworks/Addresses/GNUmakefile	2009-08-07 03:22:45.813737100 -0500
+@@ -59,6 +59,6 @@ after-Addresses-all::
+ endif
+ 
+ after-Addresses-install::
+-	ln -sf $(GNUSTEP_HEADERS)/Addresses \
++	ln -sf Addresses \
+ 	       $(GNUSTEP_HEADERS)/AddressBook
+ 
+--- origsrc/Etoile-0.4.1/Frameworks/EtoileFoundation/Source/ETUUID.m	2009-03-17 08:18:26.000000000 -0500
++++ src/Etoile-0.4.1/Frameworks/EtoileFoundation/Source/ETUUID.m	2009-08-07 03:22:45.817487200 -0500
+@@ -15,7 +15,7 @@
+ // time and pid to seed the random number generator.
+ #if defined(__FreeBSD__) || defined(__OpenBSD) || defined(__DragonFly__)
+ #define INITRANDOM() srandomdev()
+-#elif defined(__linux__)
++#elif defined(__linux__) || defined(__CYGWIN__)
+ #include <sys/time.h>
+ #include <time.h>
+ #include <sys/types.h>
+--- origsrc/Etoile-0.4.1/Frameworks/PopplerKit/bindings/GNUmakefile	2009-03-17 08:18:08.000000000 -0500
++++ src/Etoile-0.4.1/Frameworks/PopplerKit/bindings/GNUmakefile	2009-08-07 03:22:45.824987300 -0500
+@@ -44,7 +44,7 @@ bindings_OBJC_FILES = \
+ poppler_objc.m
+ 
+ ifeq ($(HAVE_CAIRO), YES)
+-   bindings_C_FILES += poppler_cairo_img_renderer.cc
++   bindings_C_FILES += poppler_cairo_img_renderer.c
+ endif
+ 
+ ifeq ($(POPPLER_0_6), YES)
+--- origsrc/Etoile-0.4.1/etoile.make	2009-03-17 08:19:36.000000000 -0500
++++ src/Etoile-0.4.1/etoile.make	2009-08-07 11:03:19.778481400 -0500
+@@ -143,7 +143,6 @@ after-all::
+ 	## Export Framework ## \
+ 	if [ -d  $(PROJECT_DIR)/$(PROJECT_NAME).framework ]; then \
+ 	exported="yes"; \
+-	$(LN_S) -f $(PROJECT_DIR)/$(PROJECT_NAME).framework $(BUILD_DIR)/$(PROJECT_NAME).framework; \
+ 	$(LN_S) -f ${PROJECT_DIR}/${PROJECT_NAME}.framework/Versions/Current/lib${PROJECT_NAME}${SHARED_LIBEXT}* $(BUILD_DIR); \
+ 	fi; \
+ 	\
+@@ -287,7 +287,7 @@ export LD_LIBRARY_PATH := $(BUILD_DIR):$
+ 
+ # We disable warnings about #import being deprecated. They occur with old GCC
+ # version (before 4.0 iirc).
+-export ADDITIONAL_OBJCFLAGS += -Wno-import -Werror -Wno-unused -Wno-implicit
++export ADDITIONAL_OBJCFLAGS += -Wno-import -Wno-unused -Wno-implicit
+ 
+ # For test bundles, we must link UnitKit
+ ifeq ($(test), yes)

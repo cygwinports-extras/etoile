@@ -1,0 +1,9 @@
+category: GNUstep
+requires: libgnustep-base-devel libMediaKit0 libavcodec-devel libavformat-devel
+external-source: etoile
+sdesc: "GNUstep MediaKit framework (development)"
+ldesc: "Étoilé intends to be an innovative GNUstep based user 
+environment built from the ground up on highly modular and light 
+components with project and document orientation in mind, in order to 
+allow users to create their own workflow by reshaping or recombining 
+provided Services (aka Applications), Components etc."
