@@ -19,6 +19,8 @@ gnustep_pkg_frameworks AddressView:0 Addresses:0 CoreObject:0 EtoileFoundation:0
 
 libAddresses_devel_CONTENTS+=" usr/include/GNUstep/AddressBook"
 libUnitKit_devel_CONTENTS+=" usr/bin/ukrun.exe"
+libEtoileThread_devel_CONTENTS+=" usr/share/GNUstep/Documentation/EtoileThread/"
+libEtoileXML_devel_CONTENTS+=" usr/share/GNUstep/Documentation/EtoileXML/"
 
 PKG_NAMES+=" Camaelon.bundle EtoileMenus.bundle Idle.tool libLuceneKit0 libLuceneKit-devel"
 Camaelon_bundle_CONTENTS="usr/lib/GNUstep/Bundles/Camaelon.themeEngine/"
@@ -35,6 +37,12 @@ src_install() {
 	gnustep_env
 	gnustep_install
 
-	# FIXME: doesn't install correctly
-	rm -fr ${D}/usr/share/GNUstep/Documentation
+	# doesn't install correctly
+	rm -fr ${D}/usr/share/GNUstep/Documentation/*
+
+	insinto /usr/share/GNUstep/Documentation/EtoileThread
+	doins Frameworks/EtoileFoundation/EtoileThread/*.{html,gsdoc,igsdoc}
+
+	insinto /usr/share/GNUstep/Documentation/EtoileXML
+	doins Frameworks/EtoileFoundation/EtoileXML/*.{html,gsdoc,igsdoc}
 }

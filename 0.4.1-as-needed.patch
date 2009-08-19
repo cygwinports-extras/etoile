@@ -10,27 +10,17 @@
  -include GNUmakefile.local
 --- origsrc/Etoile-0.4.1/Frameworks/MediaKit/GNUmakefile	2009-03-17 08:18:07.000000000 -0500
 +++ src/Etoile-0.4.1/Frameworks/MediaKit/GNUmakefile	2009-08-07 03:22:45.821237200 -0500
-@@ -15,15 +15,15 @@ MediaKit_HEADER_FILES = \
+@@ -15,8 +15,8 @@ MediaKit_HEADER_FILES = \
  				MKSoundDevice.h
  
  ADDITIONAL_OBJCFLAGS = -std=c99 -g -Werror `pkg-config libavcodec --cflags`
 -ADDITIONAL_OBJCFLAGS += `pkg-config libavcodec --cflags`
 -ADDITIONAL_OBJCFLAGS += `pkg-config libavformat --cflags`
-+ADDITIONAL_OBJCFLAGS += -I/usr/include/libavcodec
-+ADDITIONAL_OBJCFLAGS += -I/usr/include/libavformat
++ADDITIONAL_OBJCFLAGS += -I`pkg-config libavcodec --variable includedir`/libavcodec
++ADDITIONAL_OBJCFLAGS += -I`pkg-config libavformat --variable includedir`/libavformat
  
  #If you install OSS 4 in Ubuntu, the header files are located here:
  ADDITIONAL_OBJCFLAGS += -I/usr/lib/oss/include
- 
--ADDITIONAL_LDFLAGS += -lgnustep-gui -lEtoileFoundation -lSystemConfig
--ADDITIONAL_LDFLAGS += `pkg-config libavcodec --libs`
--ADDITIONAL_LDFLAGS += `pkg-config libavformat --libs`
-+ADDITIONAL_TOOL_LIBS += -lgnustep-gui -lEtoileFoundation -lSystemConfig
-+ADDITIONAL_TOOL_LIBS += `pkg-config libavcodec --libs`
-+ADDITIONAL_TOOL_LIBS += `pkg-config libavformat --libs`
- 
- include $(GNUSTEP_MAKEFILES)/framework.make
- -include ../../etoile.make
 --- origsrc/Etoile-0.4.1/Frameworks/PopplerKit/config.sh	2009-03-17 08:18:13.000000000 -0500
 +++ src/Etoile-0.4.1/Frameworks/PopplerKit/config.sh	2009-08-07 03:22:45.828737300 -0500
 @@ -22,7 +22,7 @@ if [ $? -ne 0 ]; then
@@ -51,23 +41,3 @@
  
  # poppler cairo device
  ${PKG_CONFIG} --exists poppler-cairo
-@@ -85,7 +85,7 @@ echo "${POPPLER_VERSION}=YES" >> config.
- echo "FT_CFLAGS=${FT_CFLAGS}" >> config.make
- echo "FT_LIBS=${FT_LIBS}" >> config.make
- echo "ADDITIONAL_CFLAGS+=\$(POPPLER_CFLAGS) \$(FT_CFLAGS)" >> config.make
--echo "ADDITIONAL_LDFLAGS+=\$(POPPLER_LIBS) \$(POPPLER_LIBS)" >> config.make
-+echo "ADDITIONAL_TOOL_LIBS+=\$(POPPLER_LIBS) \$(POPPLER_LIBS)" >> config.make
- # we add -I/usr/X11R6/include for older FreeBSD version.
- echo "ADDITIONAL_INCLUDE_DIRS += -I/usr/X11R6/include" >> config.make
- echo "HAVE_CAIRO=${HAVE_CAIRO}" >>config.make
---- origsrc/Etoile-0.4.1/Services/User/Jabber/GNUmakefile	2009-03-17 08:18:49.000000000 -0500
-+++ src/Etoile-0.4.1/Services/User/Jabber/GNUmakefile	2009-08-07 03:22:45.832487400 -0500
-@@ -53,7 +53,7 @@ StepChat_OBJC_FILES = \
- 	XMLLog.m\
- 	main.m
- 
--ADDITIONAL_LDFLAGS += -lEtoileXML -lXMPPKit -lAddresses -lssl -lcrypto -g \
-+ADDITIONAL_TOOL_LIBS += -lEtoileXML -lXMPPKit -lAddresses -lssl -lcrypto -g \
- 	$(GUI_LIBS) $(FND_LIBS) $(OBJC_LIBS) $(SYSTEM_LIBS)
- ADDITIONAL_OBJCFLAGS += -werror -g
- ADDITIONAL_OBJCFLAGS = -DGNUSTEP -DNO_ATTRIBUTED_TITLES -std=c99 -Wno-import
